@@ -7,82 +7,92 @@ const currentPage = 1;
 
 axios.defaults.baseURL = API_URL;
 
-function  fetchTrendDayMovies() {
-  const response = axios.get(`/trending/movie/day`, {
+export const fetchTrendDayMovies = () => {
+  return axios.get(`/trending/movie/day`, {
     params: {
       api_key: API_KEY,
       language: "en",
       page: currentPage,
     },
-  });
-  return response.data;
+  }).then((response)=>response.data.results)
+ 
 }
 
-function fetchMovieQuery () {
-  const response =  axios.get(`/search/movie/`, {
+
+export const fetchMovieQuery = async () => {
+  return await axios.get(`/search/movie/`, {
     params: {
       api_key: API_KEY,
       language: "en",
       query: searchQuery,
       page: currentPage,
     },
-  });
-  return response.data;
+  }).then((response)=>response.data.results)
 }
 
 
-function fetchMovieByID(id) {
-  const response =  axios.get(`/movie/${id}`, {
+export const fetchMovieByID = (id) => {
+  return axios.get(`/movie/${id}`, {
     params: {
       api_key: API_KEY,
       language: "en",
     },
-  });
-  return response.data;
+  }).then((response)=>response.data.results)
 }
 
-function fetchMovieByCredit(id) {
-  const response = axios.get(`/movie/${id}/credit`, {
+export const fetchMovieByCredit = (id) => {
+  return axios.get(`/movie/${id}/credit`, {
     params: {
       api_key: API_KEY,
       language: "en",
     },
-  });
-  return response.data;
+  }).then((response)=>response.data.results)
 }
 
-function fetchMovieByReviews(id) {
-  const response = axios.get(`/movie/${id}/reviews`, {
+export const fetchMovieByReviews = (id) => {
+  return axios.get(`/movie/${id}/reviews`, {
     params: {
       api_key: API_KEY,
       language: "en",
     },
-  });
-  return response.data;
+  }).then((response)=>response.data.results)
 }
 
 
-export const getTrendDayMovies = () => {
-  return Promise.resolve(fetchTrendDayMovies());
-};
+// export const getTrendDayMovies = () => {
+//   return Promise.resolve(fetchTrendDayMovies());
+// };
 
-export const getMovieQuery = () => {
-  return Promise.resolve(fetchMovieQuery());
-};
-
-
-export const gethMovieByID = id => {
-  return Promise.resolve(fetchMovieByID.find(movie => movie.id === id));
-};
-
-export const gethMovieByCredit = () => {
-  return Promise.resolve(fetchMovieByCredit());
-};
+// export const getMovieQuery = () => {
+//   return Promise.resolve(fetchMovieQuery());
+// };
 
 
-export const getMovieByReviews = () => {
-  return Promise.resolve(fetchMovieByReviews());
-};
+// export const gethMovieByID = id => {
+//   return Promise.resolve(fetchMovieByID.find(movie => movie.id === id));
+// };
+
+// export const gethMovieByCredit = () => {
+//   return Promise.resolve(fetchMovieByCredit());
+// };
+
+
+// export const getMovieByReviews = () => {
+//   return Promise.resolve(fetchMovieByReviews());
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

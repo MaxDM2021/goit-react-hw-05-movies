@@ -1,5 +1,5 @@
 
-import { getTrendDayMovies }  from 'fakeApi';
+import { fetchTrendDayMovies }  from 'fakeApi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -10,9 +10,10 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
  
   useEffect(() => {
-    getTrendDayMovies.then(setMovies);
+    fetchTrendDayMovies().then(setMovies);
   }, []);
 
+console.log(movies)
 
   return (
     <main>
