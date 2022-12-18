@@ -1,76 +1,38 @@
-
 import axios from "axios";
 const API_URL = 'https://api.themoviedb.org/3';
 const API_KEY = 'a620a6416fb18e40f7d335c64c3f9e0e';
 
+const searchQuery = null;
+const currentPage = 1;
+
 axios.defaults.baseURL = API_URL;
 
-function handlerGenres ({results, ...other}, genres) {
-  for (const object of results) {
-    object.genre_str = object.genre_ids.map(elem => genres.find(genre =>  genre.id === elem).name);
-  }
-  return ({...other, results})
+function  fetchTrendDayMovies() {
+  const response = axios.get(`/trending/movie/day`, {
+    params: {
+      api_key: API_KEY,
+      language: "en",
+      page: currentPage,
+    },
+  });
+  return response.data;
 }
 
-class MoviesApi{
-
-  static genres = null;
-  static async fetchGendresMovie() {
-      const response = await axios.get("/genre/movie/list", {
-        params: {
-          api_key: API_KEY,
-        },
-      });
-      this.genres = response.data.genres;
-    }
-
-
-  #searchQuery;
-  #currentPage;
-
-  constructor () {
-      this.#searchQuery = null;
-      this.#currentPage = 1;
-
-      this.constructor.fetchGendresMovie();
-  }
+function fetchMovieQuery () {
+  const response =  axios.get(`/search/movie/`, {
+    params: {
+      api_key: API_KEY,
+      language: "en",
+      query: searchQuery,
+      page: currentPage,
+    },
+  });
+  return response.data;
+}
 
 
-  async fetchTrendDayMovies() {
-    const response = await axios.get(`/trending/movie/day`, {
-      params: {
-        api_key: API_KEY,
-        language: "en",
-        page: this.#currentPage,
-      },
-    });
-    return handlerGenres(response.data, MoviesApi.genres);
-  }
-
-  async fetchMovieByID(id) {
-    const response = await axios.get(`/movie/${id}`, {
-      params: {
-        api_key: API_KEY,
-        language: "en",
-      },
-    });
-    return response.data;
-  }
-
-  async fetchMovieQuery () {
-    const response = await axios.get(`/search/movie/`, {
-      params: {
-        api_key: API_KEY,
-        language: "en",
-        query: this.#searchQuery,
-        page: this.#currentPage,
-      },
-    });
-    return handlerGenres(response.data, MoviesApi.genres);
-  }
-
-async fetchMovieByCredit(id) {
-  const response = await axios.get(`/movie/${id}/credit`, {
+function fetchMovieByID(id) {
+  const response =  axios.get(`/movie/${id}`, {
     params: {
       api_key: API_KEY,
       language: "en",
@@ -79,8 +41,18 @@ async fetchMovieByCredit(id) {
   return response.data;
 }
 
-async fetchMovieByReviews(id) {
-  const response = await axios.get(`/movie/${id}/reviews`, {
+function fetchMovieByCredit(id) {
+  const response = axios.get(`/movie/${id}/credit`, {
+    params: {
+      api_key: API_KEY,
+      language: "en",
+    },
+  });
+  return response.data;
+}
+
+function fetchMovieByReviews(id) {
+  const response = axios.get(`/movie/${id}/reviews`, {
     params: {
       api_key: API_KEY,
       language: "en",
@@ -90,60 +62,155 @@ async fetchMovieByReviews(id) {
 }
 
 
+export const getTrendDayMovies = () => {
+  return Promise.resolve(fetchTrendDayMovies());
+};
+
+export const getMovieQuery = () => {
+  return Promise.resolve(fetchMovieQuery());
+};
 
 
-  get query() {
-    return this.#searchQuery
-  }
+export const gethMovieByID = id => {
+  return Promise.resolve(fetchMovieByID.find(movie => movie.id === id));
+};
 
-  set query(newSearhQuery) {
-    this.#searchQuery = newSearhQuery;
-    this.#currentPage = 1;
-  }
+export const gethMovieByCredit = () => {
+  return Promise.resolve(fetchMovieByCredit());
+};
 
-  nextPage() {
-    this.#currentPage += 1;
-  }
 
-  previousPage() {
-    if (!(this.#currentPage - 1)){
-      return
-    }
+export const getMovieByReviews = () => {
+  return Promise.resolve(fetchMovieByReviews());
+};
+
+
+
+// function handlerGenres ({results, ...other}, genres) {
+//   for (const object of results) {
+//     object.genre_str = object.genre_ids.map(elem => genres.find(genre =>  genre.id === elem).name);
+//   }
+//   return ({...other, results})
+// }
+
+// class MoviesApi {
+
+//   static genres = null;
+//   static async fetchGendresMovie() {
+//       const response = await axios.get("/genre/movie/list", {
+//         params: {
+//           api_key: API_KEY,
+//         },
+//       });
+//       this.genres = response.data.genres;
+//     }
+
+
+//   #searchQuery;
+//   #currentPage;
+
+//   constructor () {
+//       this.#searchQuery = null;
+//       this.#currentPage = 1;
+
+//       this.constructor.fetchGendresMovie();
+//   }
+
+
+//   async fetchTrendDayMovies() {
+//     const response = await axios.get(`/trending/movie/day`, {
+//       params: {
+//         api_key: API_KEY,
+//         language: "en",
+//         page: this.#currentPage,
+//       },
+//     });
+//     return handlerGenres(response.data, MoviesApi.genres);
+//   }
+
+//   async fetchMovieByID(id) {
+//     const response = await axios.get(`/movie/${id}`, {
+//       params: {
+//         api_key: API_KEY,
+//         language: "en",
+//       },
+//     });
+//     return response.data;
+//   }
+
+//   async fetchMovieQuery () {
+//     const response = await axios.get(`/search/movie/`, {
+//       params: {
+//         api_key: API_KEY,
+//         language: "en",
+//         query: this.#searchQuery,
+//         page: this.#currentPage,
+//       },
+//     });
+//     return handlerGenres(response.data, MoviesApi.genres);
+//   }
+
+// async fetchMovieByCredit(id) {
+//   const response = await axios.get(`/movie/${id}/credit`, {
+//     params: {
+//       api_key: API_KEY,
+//       language: "en",
+//     },
+//   });
+//   return response.data;
+// }
+
+// async fetchMovieByReviews(id) {
+//   const response = await axios.get(`/movie/${id}/reviews`, {
+//     params: {
+//       api_key: API_KEY,
+//       language: "en",
+//     },
+//   });
+//   return response.data;
+// }
+
+//   get query() {
+//     return this.#searchQuery
+//   }
+
+//   set query(newSearhQuery) {
+//     this.#searchQuery = newSearhQuery;
+//     this.#currentPage = 1;
+//   }
+
+//   nextPage() {
+//     this.#currentPage += 1;
+//   }
+
+//   previousPage() {
+//     if (!(this.#currentPage - 1)){
+//       return
+//     }
     
-    this.#currentPage -= 1;
-  }
+//     this.#currentPage -= 1;
+//   }
 
-  get currentpage() {
-    return this.#currentPage
-  }
+//   get currentpage() {
+//     return this.#currentPage
+//   }
 
-  set currentpage(newPage) {
-    this.#currentPage = newPage;
-  }
+//   set currentpage(newPage) {
+//     this.#currentPage = newPage;
+//   }
 
-  get genres() {
-    return MoviesApi.genres;
-  }
+//   get genres() {
+//     return MoviesApi.genres;
+//   }
 
-  set genres (genre) {
-      return
-  }
+//   set genres (genre) {
+//       return
+//   }
 
   
-}
+// }
 
-export default MoviesApi;
-
-
-
-
-
-
-
-
-
-
-
+// export default MoviesApi;
 
 
 // ====================================================
@@ -242,12 +309,6 @@ export default MoviesApi;
 // export const getMovieByReviews = () => {
 //   return Promise.resolve(fetchMovieByReviews());
 // };
-
-
-
-
-
-
 
 
 

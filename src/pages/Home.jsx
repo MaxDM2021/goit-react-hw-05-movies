@@ -1,5 +1,5 @@
 
-import  MoviesApi  from 'fakeApi';
+import { getTrendDayMovies }  from 'fakeApi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -8,13 +8,10 @@ const Home = () => {
 
   const location = useLocation();
   const [movies, setMovies] = useState([]);
-
-
-
+ 
   useEffect(() => {
-    MoviesApi.fetchTrendDayMovies.then(setMovies);
+    getTrendDayMovies.then(setMovies);
   }, []);
-
 
 
   return (
@@ -25,7 +22,7 @@ const Home = () => {
         <ul>
           {movies.map(movie => (
             <li key={movie.id}>
-                - <Link to={`${movie.id}`} state={{ from: location}} >{movie.name}</Link></li>
+                - <Link to={`${movie.id}`} state={{ from: location}} >{movie.title}</Link></li>
           ))}
         </ul>
         </>
@@ -35,3 +32,5 @@ const Home = () => {
 };
 
 export default Home;
+
+

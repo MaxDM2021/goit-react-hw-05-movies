@@ -1,5 +1,5 @@
 import { SearchBox } from 'components/SearchBox';
-import  MoviesApi from 'fakeApi';
+import { getMovieQuery } from 'fakeApi';
 import { useEffect, useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
@@ -13,7 +13,7 @@ const Movies = () => {
   const filterParam = searchParams.get('filter') ?? '';
 
   useEffect(() => {
-    MoviesApi.fetchMovieQuery().then(setCustomers);
+    getMovieQuery.then(setCustomers);
   }, []);
 
   const changeFilter = value => {
