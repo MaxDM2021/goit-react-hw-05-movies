@@ -2,7 +2,7 @@ import axios from "axios";
 const API_URL = 'https://api.themoviedb.org/3';
 const API_KEY = 'a620a6416fb18e40f7d335c64c3f9e0e';
 
-const searchQuery = null;
+const searchQuery = '';
 const currentPage = 1;
 
 axios.defaults.baseURL = API_URL;
@@ -20,14 +20,17 @@ export const fetchTrendDayMovies = () => {
 
 
 export const fetchMovieQuery = async () => {
-  return await axios.get(`/search/movie/`, {
+  
+  const response = await axios.get(`/search/movie/`, {
     params: {
       api_key: API_KEY,
       language: "en",
       query: searchQuery,
       page: currentPage,
     },
-  }).then((response)=>response.data.results)
+  })
+  return response.data.results
+
 }
 
 

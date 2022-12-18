@@ -6,9 +6,7 @@ import { useEffect, useState } from 'react';
 // import { useSearchParams } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
 
-
 const Movies = () => {
-
   const location = useLocation();
 
   const [movieName, setName] = useState('');
@@ -16,69 +14,60 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [total, setTotal] = useState(0);
 
-const handleNameChange = event => {
-  setName(event.target.value.toLowerCase());
-}
+  const handleNameChange = event => {
+    setName(event.target.value.toLowerCase());
+  };
 
-const handleSubmit = event => {
-  event.preventDefault();
-
-  if (movieName.trim() === ''){
-    return toast.error('Введите название изображения!');
-    
-  }
-  setPage(1)
-  setName(movieName)
-  setName('');
-};
+  const handleSubmit = event => {
+    event.preventDefault();
 
 
-useEffect(() => {
-  fetchMovieQuery(movieName, page, total).then(setMovies);
-  //eslint-disable-next-line
-}, [page, movieName]);
 
+    if (movieName.trim() === '') {
+      return toast.error('Введите название изображения!');
+    }
+    setPage(1);
+    setName(movieName);
+    setName('');
+  };
 
-// Как работает useEffect: Если hitName изменятся, запустятся все фунции вложенные в useEffect
+  useEffect(() => {
+    if (movieName.trim()) {
+    fetchMovieQuery(movieName, page, total).then(setMovies);
+    }
+    //eslint-disable-next-line
+  }, [page, movieName]);
 
-useEffect(() => {
+  // Как работает useEffect: Если hitName изменятся, запустятся все фунции вложенные в useEffect
+
+  useEffect(() => {
     setMovies([]);
     setTotal(0);
-}, [movieName]);
+  }, [movieName]);
 
   return (
     <main>
-      <SearchBox value={movieName} onChange={handleNameChange} onForm={handleSubmit}/>
+      <SearchBox
+        value={movieName}
+        onChange={handleNameChange}
+        onForm={handleSubmit}
+      />
       {movies.length > 0 && (
         <ul>
           {movies.map(movie => (
             <li key={movie.id}>
-                <Link to={`${movie.id}`} state={{ from: location}} >{movie.title}</Link></li>
+              <Link to={`${movie.id}`} state={{ from: location }}>
+                {movie.title}
+              </Link>
+            </li>
           ))}
         </ul>
       )}
     </main>
   );
-}
+};
 
-export default Movies
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default Movies;
 
 // const Movies = () => {
 
@@ -94,7 +83,6 @@ export default Movies
 //   const changeFilter = value => {
 //     setSearchParams(value !== '' ? { filter: value } : {});
 //   };
-
 
 //   const visiblemovies = useMemo(() => {
 //     return movies.filter(movie =>
