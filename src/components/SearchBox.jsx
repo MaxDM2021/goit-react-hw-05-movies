@@ -2,9 +2,16 @@ import { ImSearch } from 'react-icons/im';
 import 'components/Styles/styles.css';
 
 
-export const SearchBox = ({ value, onChange, onForm }) => {
+export const SearchBox = ({ onSubmit }) => {
+
+  const onSubmitForm=(e)=>{
+    e.preventDefault();
+    onSubmit(e.target.elements.movieName.value);
+    e.target.reset()
+  }
+
   return (
-    <form onSubmit={onForm} className="SearchForm">
+    <form onSubmit={onSubmitForm} className="SearchForm">
     <button type="submit" className="SearchForm-button">
     <ImSearch />
       <span className="SearchForm-button-label">Search</span>
@@ -17,8 +24,6 @@ export const SearchBox = ({ value, onChange, onForm }) => {
       autoComplete="off"
       autoFocus
       placeholder="Search movies"
-      value={value}
-      onChange={onChange}
     />
   </form>
 
