@@ -37,6 +37,7 @@ export const fetchMovieByID = (id) => {
     params: {
       api_key: API_KEY,
       language: "en",
+      
     },
   }).then((response)=>response.data.results)
 }

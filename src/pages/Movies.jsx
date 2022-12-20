@@ -13,25 +13,16 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   // const [searchParams, setSearchParams] = useSearchParams();
 
-  
-
-
   const handleSubmit = query => {
-
-
     if (query.trim() === '') {
       return toast.error('Введите название изображения!');
     }
     setName(query);
   };
 
-
-
-
-
   useEffect(() => {
     if (movieName) {
-    fetchMovieQuery(movieName).then(setMovies);
+      fetchMovieQuery(movieName).then(setMovies);
     }
   }, [movieName]);
 
@@ -39,14 +30,12 @@ const Movies = () => {
 
   return (
     <main>
-      <SearchBox
-        onSubmit={handleSubmit}
-      />
+      <SearchBox onSubmit={handleSubmit} />
       {movies.length > 0 && (
         <ul>
           {movies.map(movie => (
             <li key={movie.id} movie={movie}>
-              <Link to={`${movie.id}`} state={{ from: location }  }>
+              <Link to={`${movie.id}`} state={{ from: location }}>
                 {movie.title}
               </Link>
             </li>
@@ -58,4 +47,3 @@ const Movies = () => {
 };
 
 export default Movies;
-
