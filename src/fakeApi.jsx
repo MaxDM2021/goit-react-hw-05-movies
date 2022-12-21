@@ -44,7 +44,7 @@ export const fetchMovieByID = (id) => {
 
 export const fetchMovieByCredit = (id) => {
 
-  return axios.get(`/credit/${id}`, {
+  return axios.get(`movie/${id}/credits`, {
     params: {
       api_key: API_KEY,
       language: "en",
@@ -53,7 +53,7 @@ export const fetchMovieByCredit = (id) => {
 }
 
 export const fetchMovieByReviews = (id) => {
-  return axios.get(`/movie/${id}/reviews`, {
+  return axios.get(`movie/${id}/reviews`, {
     params: {
       api_key: API_KEY,
       language: "en",
