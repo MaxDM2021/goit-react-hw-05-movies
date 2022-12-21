@@ -8,8 +8,8 @@ import { NavLink } from 'react-router-dom';
 import { Box } from './Box';
 
 const navItems = [
-  { href: 'Home', text: 'Home', icon: BsFillHouseFill },
-  { href: 'Movies', text: 'Movies', icon: BsFillCameraReelsFill },
+  { href: 'home', text: 'Home', icon: BsFillHouseFill },
+  { href: 'movies', text: 'Movies', icon: BsFillCameraReelsFill },
 
 ];
 

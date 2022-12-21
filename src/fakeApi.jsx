@@ -1,7 +1,7 @@
 import axios from "axios";
 const API_URL = 'https://api.themoviedb.org/3';
 const API_KEY = 'a620a6416fb18e40f7d335c64c3f9e0e';
-
+export const API_IMG = 'https://image.tmdb.org/t/p/w500';
 
 
 axios.defaults.baseURL = API_URL;
@@ -39,16 +39,17 @@ export const fetchMovieByID = (id) => {
       language: "en",
       
     },
-  }).then((response)=>response.data.results)
+  }).then((response)=>response.data)
 }
 
 export const fetchMovieByCredit = (id) => {
-  return axios.get(`/movie/${id}/credit`, {
+
+  return axios.get(`/credit/${id}`, {
     params: {
       api_key: API_KEY,
       language: "en",
     },
-  }).then((response)=>response.data.results)
+  }).then((response)=>response.data.cast)
 }
 
 export const fetchMovieByReviews = (id) => {
