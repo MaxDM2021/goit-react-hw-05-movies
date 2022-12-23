@@ -1,9 +1,11 @@
-import { fetchMovieByCredit, API_IMG } from 'fakeApi';
+import { fetchMovieByCredit, API_IMG, DEF_IMG } from 'fakeApi';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams  } from 'react-router-dom';
 
 
 const Cast = () => {
+
+  // const location = useLocation();
 
 const { movieId } = useParams();
 const [casts, setCast] = useState([]);
@@ -22,7 +24,7 @@ useEffect(() => {
   }, [movieId]);
 
 
-// const backLinkHref = location.state?.from ?? '/movies/:movieId';
+// const backLinkHref = location.state?.from ?? '/movies';
 
 
   return (
@@ -31,7 +33,7 @@ useEffect(() => {
           <ul>
             {casts.map( ({id, profile_path, name, character}) => (
               <li key={id}>
-                <img src={API_IMG + profile_path} alt={name}/>
+                <img src={profile_path ? API_IMG + profile_path : DEF_IMG} alt={name} width="150" />
                 <p>{name}</p>
                 <p>{character}</p>
               </li>

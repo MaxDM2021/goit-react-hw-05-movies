@@ -1,11 +1,14 @@
 import { toast } from 'react-toastify';
 
 import { SearchBox } from 'components/SearchBox';
-import { fetchMovieQuery } from 'fakeApi';
+import { fetchMovieQuery, API_IMG, DEF_IMG  } from 'fakeApi';
 import { useEffect, useState } from 'react';
 
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { Suspense } from 'react';
+
+import "../components/Styles/styles.css";
+import { Box } from '../components/Box';
 
 const Movies = () => {
   const location = useLocation();
@@ -32,7 +35,6 @@ const Movies = () => {
 
   const getFetchQuery = async e => {
     const data = await fetchMovieQuery(e);
-
     setMovies(data);
   };
 
@@ -66,28 +68,29 @@ const Movies = () => {
   };
 
   return (
-    <main>
+    < Box backgroundColor="#403f9d36" >
       <SearchBox
         onSubmit={handleSubmit}
         onChange={onChange}
         value={valueMovieName}
       />
       {movies.length > 0 && (
-        <ul>
+        <Box as="ul" display="flex" flexWrap="wrap" justifyContent="center">
           {movies.map(movie => (
-            <li key={movie.id} movie={movie}>
-              <Link to={`/movies/${movie.id}`} state={{ from: location }}>
+            <Box as="li" key={movie.id}  movie={movie}  margin="10px" >
+              <Link to={`/movies/${movie.id}`} state={{ from: location }} className="item" >
+              <Box as="img" src={movie.poster_path ? API_IMG + movie.poster_path : DEF_IMG} alt={movie.title} width="400" borderRadius="10px" marginBottom="20px"/>
                 {movie.title}
               </Link>
-            </li>
+            </Box>
           ))}
-        </ul>
+        </Box>
       )}
 
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
-    </main>
+    </Box >
   );
 };
 

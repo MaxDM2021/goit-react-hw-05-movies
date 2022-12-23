@@ -50,7 +50,7 @@ const MovieDetails = () => {
   }
 
   const { title, poster_path, release_date, overview, genres } = movie;
-  // const dataRelease = String(release_date).slice(0, 4);
+  const dataRelease = `${String(release_date).slice(8, 10)}. ${String(release_date).slice(5, 7)}. ${String(release_date).slice(0, 4)}`;
 
   const backLinkHref = location.state?.from ?? '/movies';
 
@@ -71,11 +71,11 @@ const MovieDetails = () => {
                 `${genre.name} ${array.length - 1 === i ? '' : ', '}`
             )}
         </p>
-        <p>Data release: {new Date(release_date.created).toLocaleDateString()}</p>
+        <p>Data release: {dataRelease}</p>
         <div>
           <Box as="nav" display="flex">
             {detailsItems.map(({ href, text, icon: Icon }) => (
-              <DetailsItem to={href} key={href}>
+              <DetailsItem to={href} key={href} state ={{from: location.state.from}}>
                 <Icon size="16" />
                 {text}
               </DetailsItem>
