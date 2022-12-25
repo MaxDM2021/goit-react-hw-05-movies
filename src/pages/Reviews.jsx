@@ -2,6 +2,8 @@ import { fetchMovieByReviews } from 'fakeApi';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import '../components/Styles/styles.css'
+
 
 const Reviews = () => {
 
@@ -26,12 +28,12 @@ useEffect(() => {
   return (
     <main>
       {reviews.length !== 0 ? ( 
-      <><h2>Reviews:</h2>
+      <><h2 className="title">Reviews:</h2>
           <ul>
             {reviews.map(({id, author, content}) => (
               <li key={id}>
-                <h3>{author}</h3>
-                <p> {content}</p>
+                <h3 className="title">{author}</h3>
+                <p className="title"> {content}</p>
               </li>
             ))}
           </ul>

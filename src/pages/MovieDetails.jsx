@@ -4,7 +4,7 @@ import { Link, useLocation, useParams, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box } from '../components/Box';
 import { BsFillEmojiSunglassesFill, BsBookHalf } from 'react-icons/bs';
-import '../components/Styles/styles.css';
+import '../components/Styles/styles.css'
 
 const detailsItems = [
   { href: 'cast', text: 'Cast', icon: BsFillEmojiSunglassesFill },
@@ -86,19 +86,19 @@ const MovieDetails = () => {
             marginTop="20px"
           />
            <Box display="flex" flexDirection="column" margin="20px" width="600px">
-          <h2>{title}</h2>
-          <p> <b>Overview </b>: {overview}</p>
-          <p><b>Genres</b>:
+          <h2 className="titleMovie">{title}</h2>
+          <p className="title"><span className="secondTitle"> Overview </span>: {overview}</p>
+          <p className="title"> <span className="secondTitle">Genres </span>:
             {genres &&
               genres.map(
                 (genre, i, array) =>
                   `${genre.name} ${array.length - 1 === i ? '' : ', '}`
               )}
           </p>
-          <p><b>Data release: </b> {dataRelease}</p>
+          <p className="title"> <span className="secondTitle">Data release</span>:  {dataRelease}</p>
           <div>
-            <Box as="nav" display="flex">
-              {detailsItems.map(({ href, text, icon: Icon }) => (
+            <Box as="nav" display="flex" marginBottom="20px">
+              { detailsItems.map(({ href, text, icon: Icon }) => (
                 <DetailsItem
                   to={href}
                   key={href}

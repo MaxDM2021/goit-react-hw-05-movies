@@ -327,3 +327,19 @@ background-color: #fff;
 header {
   background-image: url('./IMG_20221014_175200.jpg');
 }
+
+.titleMovie {
+  font-size: 30px;
+  margin-bottom: 20px;
+ 
+}
+
+.title{
+  margin-bottom: 20px;
+  
+}
+
+.secondTitle{
+  font-weight: 600;
+  font-size: 20px;
+}
