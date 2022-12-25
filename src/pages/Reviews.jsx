@@ -12,8 +12,6 @@ const params = useParams()
 
 console.log(params)
 
-
-
 useEffect(() => {
     (async () => {
       const listReviews = await fetchMovieByReviews(movieId);
@@ -27,15 +25,18 @@ useEffect(() => {
 
   return (
     <main>
-         <h2>Reviews</h2>
+      {reviews.length !== 0 ? ( 
+      <><h2>Reviews:</h2>
           <ul>
             {reviews.map(({id, author, content}) => (
               <li key={id}>
-                <p>{author}</p>
-                <p>{content}</p>
+                <h3>{author}</h3>
+                <p> {content}</p>
               </li>
             ))}
           </ul>
+          </>) : (<h3>Reviews are missing </h3>) }
+
     </main>
   );
 };
