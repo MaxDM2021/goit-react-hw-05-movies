@@ -102,7 +102,7 @@ const MovieDetails = () => {
                 <DetailsItem
                   to={href}
                   key={href}
-                  state={{ from: location.state }}
+                  state={{ from: location.state?.from ?? 'movies/:movieId'}}
                 >
                   <Icon className='icon' size="16" />
                   {text}
