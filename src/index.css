@@ -15,5 +15,6 @@ code {
   display: block;
 
 justify-content: center;
-
+flex-direction: column;
+color: #3f4b4b;
 }

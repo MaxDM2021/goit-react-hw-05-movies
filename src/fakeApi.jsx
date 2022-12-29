@@ -21,7 +21,7 @@ export const fetchTrendDayMovies = () => {
 
 export const fetchMovieQuery = async (searchQuery) => {
   
-  const response = await axios.get(`/search/movie/`, {
+  const response = await axios.get(`/search/movie`, {
     params: {
       api_key: API_KEY,
       language: "en",

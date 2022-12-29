@@ -43,7 +43,7 @@ const NavItem = styled(NavLink)`
 
 export const AppBar = () => {
   return (
-    <Box as="header" p={4} height="10vh" borderBottom="4px solid #3f4b4b" >
+    <Box as="header" p={4} height="70px" borderBottom="4px solid #3f4b4b" >
       <Box as="nav" display="flex" justifyContent="center" >
         {navItems.map(({ href, text, icon: Icon }) => (
         <NavItem to={href} key={href}>
